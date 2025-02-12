@@ -37,7 +37,7 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <legend>Dades personals</legend>
                 <!-- Un camp per introduir el nom complet -->
                 <label for="nom">Nom complet:</label>
-                <input type="text" name="nom" autofocus>
+                <input type="text" required title="your warning text" name="nom" autofocus>
                 <!-- Un camp per introduir la data de naixement -->
                 <label for="dataNaixement">Data de Naixement:</label>
                 <input type="date" name="dataNaixement" id="dataNaixement">
@@ -51,7 +51,10 @@ comprovarà si hi ha dades guardades i les carregarà.
                 més).
                 -->
                 <label for="contrasenya">Contrasenya:</label>
-                <input type="password" name="contrasenya" id="contrasenya">
+                <!-- 
+                    =========>>> FALTA EL PATTERN!!!!!!!!!!!!!!!!!!!!!!!!!!
+                -->
+                <input type="password" name="contrasenya" id="contrasenya" pattern="">
             </fieldset>
             <fieldset>
                 <legend>Dades de la pel·lícula</legend>
