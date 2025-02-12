@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<!-- gqj -->
+<!-- 
+La idea és crear un nou HTML al mateix projecte del videoclub que contindrà un
+formulari. 
+Tots dos estaran relacionats entre si i podrem navegar de l'un a
+l’altre a través d’un botó (no un enllaç).
+
+A la pàgina principal s'usaren aquestes dades per crear un objecte client i
+emmagatzemar-ho a la llista de clients. Aquestes dades han de ser persistents,
+és a dir, cada vegada que s’afegeixi un client, s’actualitzarà la llista i es
+guardarà al LocalStorage. Si es tanca la pàgina i es torna a obrir, es
+comprovarà si hi ha dades guardades i les carregarà. 
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="./dist/formulari.js"></script>
+    <link rel="stylesheet" href="formulari.css">
+</head>
+
+<body>
+    <div class="background-image"></div>
+    <div class="container">
+        <h1>Formulari</h1>
+        <!-- 
+        S’ha d'enviar amb un GET a la pàgina principal. Tots els avisos d’errors
+        han d'aparèixer directament al formulari amb missatges propis (no s’han
+        d’utilitzar alerts). 
+        -->
+        <button onclick="location.href='index.html'">Move</button>
+        <form id="mainForm" action="index.html" method="GET">
+            <fieldset>
+                <legend>Dades personals</legend>
+                <!-- Un camp per introduir el nom complet -->
+                <label for="nom">Nom complet:</label>
+                <input type="text" name="nom" autofocus>
+                <!-- Un camp per introduir la data de naixement -->
+                <label for="dataNaixement">Data de Naixement:</label>
+                <input type="date" name="dataNaixement" id="dataNaixement">
+                <!--  Un camp per introduir el mail amb la seva validació -->
+                <label for="emailPersona">Correu electronic:</label>
+                <input type="email" name="emailPersona" id="emailPersona">
+                <!-- 
+                Un camp per introduir una contrasenya (aquesta ha de
+                complir un patró on hi hagi almenys una lletra majúscula, una
+                minúscula, un nombre i la seva longitud sigui de 8 caràcters o
+                més).
+                -->
+                <label for="contrasenya">Contrasenya:</label>
+                <input type="password" name="contrasenya" id="contrasenya">
+            </fieldset>
+            <fieldset>
+                <legend>Dades de la pel·lícula</legend>
+                <!-- 
+                Un datalist per introduir la seva pel·lícula preferida
+                (aquest ha de començar amb 3 pel·lícules).
+                -->
+                <datalist id="pellicula">
+                    <option value="El meu veí totoro"></option>
+                    <option value="El castell ambulant"></option>
+                    <option value="La Haru al regne dels gats"></option>
+                </datalist>
+                <!-- 
+                Un select múltiple per marcar els gèneres de pel·lícula
+                favorits.
+                -->
+                <select id="generes">
+                    <option value="aventura">Aventura</option>
+                    <option value="misteri">Misteri</option>
+                    <option value="terror">Terror</option>
+                </select>
+            </fieldset>
+            <div class="buttons">
+                <input type="submit" value="Enviar">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+<!-- hay que hacer algo con el control. -->
