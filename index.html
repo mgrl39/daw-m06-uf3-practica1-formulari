@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Videoclub</title>
+  <script src="./dist/videoclub.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body onload="carregarDades()">
+  <div class="background-image"></div>
+
+  <h1>Videoclub</h1>
+
+  <section id="clients">
+    <h2>Llista de clients</h2>
+    <ul id="clientList"></ul>
+  </section>
+
+  <section id="addItem">
+    <h2>Afegir Pel·lícules o Videojocs</h2>
+    <input type="text" id="itemInput" placeholder="Nom o Nom, Plataforma">
+    <button onclick="afegirProducte()">Afegir</button>
+  </section>
+
+  <section id="displayItems">
+    <h2>Mostrar Contingut</h2>
+    <div class="controls">
+      <button onclick="mostrarDades('Pel·licules')">Mostrar Pel·lícules</button>
+      <button onclick="mostrarDades('Videojocs')">Mostrar Videojocs</button>
+      <button onclick="mostrarDades()">Mostrar Tot</button>
+    </div>
+    <div id="tableContainer"></div>
+  </section>
+
+</body>
+
+</html>
