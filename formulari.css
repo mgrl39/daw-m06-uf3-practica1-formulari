@@ -1,6 +1,7 @@
 .container {
     background-color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+    border-radius: 2%;
 }
 
 .background-image {
@@ -16,14 +17,16 @@
     z-index: -1;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     text-align: center;
     color: green;
 }
 
 button {
     padding: 10px;
-    background-color: lightcoral; 
+    background-color: lightcoral;
     color: white;
     border: red;
     border-radius: 30%;
@@ -33,4 +36,18 @@ button {
 
 button:hover {
     background-color: gray;
+}
+
+fieldset {
+    border-radius: 2%;
+}
+
+div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+input {
+    margin: 5px;
 }

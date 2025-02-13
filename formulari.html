@@ -31,30 +31,31 @@ comprovarà si hi ha dades guardades i les carregarà.
         han d'aparèixer directament al formulari amb missatges propis (no s’han
         d’utilitzar alerts). 
         -->
-        <button onclick="location.href='index.html'">Move</button>
+        <button id="button">GO BACK</button>
         <form id="mainForm" action="index.html" method="GET">
             <fieldset>
                 <legend>Dades personals</legend>
                 <!-- Un camp per introduir el nom complet -->
                 <label for="nom">Nom complet:</label>
-                <input type="text" required title="your warning text" name="nom" autofocus>
+                <input type="text" placeholder="Haru" title="Escriu el teu nom!" name="nom" required><br>
                 <!-- Un camp per introduir la data de naixement -->
                 <label for="dataNaixement">Data de Naixement:</label>
-                <input type="date" name="dataNaixement" id="dataNaixement">
+                <input type="date" name="dataNaixement" id="dataNaixement" required><br>
                 <!--  Un camp per introduir el mail amb la seva validació -->
                 <label for="emailPersona">Correu electronic:</label>
-                <input type="email" name="emailPersona" id="emailPersona">
+                <input type="email" placeholder="direccio@elpuig.xeill.net" name="emailPersona" id="emailPersona"
+                    required><br>
                 <!-- 
                 Un camp per introduir una contrasenya (aquesta ha de
                 complir un patró on hi hagi almenys una lletra majúscula, una
                 minúscula, un nombre i la seva longitud sigui de 8 caràcters o
                 més).
                 -->
-                <label for="contrasenya">Contrasenya:</label>
-                <!-- 
-                    =========>>> FALTA EL PATTERN!!!!!!!!!!!!!!!!!!!!!!!!!!
-                -->
-                <input type="password" name="contrasenya" id="contrasenya" pattern="">
+                <label for="contrasenya" required></label>Contrasenya:</label>
+                <!--  ========>>> FALTA EL PATTERN!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+                <input type="password" name="contrasenya" id="contrasenya"
+                    title="La contrasenya hi ha d'haver una lletra majuscula, minuscula, nom i la seva longitud ha de ser minimament de 8 caracters"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
             </fieldset>
             <fieldset>
                 <legend>Dades de la pel·lícula</legend>
@@ -71,7 +72,7 @@ comprovarà si hi ha dades guardades i les carregarà.
                 Un select múltiple per marcar els gèneres de pel·lícula
                 favorits.
                 -->
-                <select id="generes">
+                <select id="generes" multiple>
                     <option value="aventura">Aventura</option>
                     <option value="misteri">Misteri</option>
                     <option value="terror">Terror</option>
