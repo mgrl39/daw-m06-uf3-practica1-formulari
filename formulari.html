@@ -43,7 +43,8 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <input type="date" name="dataNaixement" id="dataNaixement" required><br>
                 <!--  Un camp per introduir el mail amb la seva validació -->
                 <label for="emailPersona">Correu electronic:</label>
-                <input type="email" placeholder="direccio@elpuig.xeill.net" name="emailPersona" id="emailPersona"
+                <input type="email" placeholder="direccio@elpuig.xeill.net"
+                    pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" name="emailPersona" id="emailPersona"
                     required><br>
                 <!-- 
                 Un camp per introduir una contrasenya (aquesta ha de
