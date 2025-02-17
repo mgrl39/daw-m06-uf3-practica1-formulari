@@ -37,13 +37,18 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <!-- Un camp per introduir el nom complet -->
                 <label for="nom">Nom complet:</label> 
                 <input type="text" placeholder="Haru" title="Escriu el teu nom!" id="nom" name="nom" required><br>
+                <span class="error-message" id="error-nom"></span><br>
+
                 <!-- Un camp per introduir la data de naixement -->
                 <label for="dataNaixement">Data de Naixement:</label>
                 <input type="date" name="dataNaixement" id="dataNaixement" required><br>
+                <span class="error-message" id="error-data"></span><br>
+                
                 <!--  Un camp per introduir el mail amb la seva validació -->
                 <label for="emailPersona">Correu electronic:</label>
                 <input type="email" placeholder="direccio@elpuig.xeill.net"
                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" name="emailPersona" id="emailPersona" required>
+                <span class="error-message" id="error-email"></span><br>
                 <!-- 
                 Un camp per introduir una contrasenya (aquesta ha de
                 complir un patró on hi hagi almenys una lletra majúscula, una
@@ -54,6 +59,7 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <input type="password" name="password" id="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}"
                     title="La contrasenya hi ha d'haver una lletra majuscula, minuscula, nom i la seva longitud ha de ser minimament de 8 caracters"
                     required>
+                <span class="error-message" id="error-password"></span><br>
             </fieldset>
             <fieldset>
                 <legend>Dades de la pel·lícula</legend>
@@ -61,26 +67,28 @@ comprovarà si hi ha dades guardades i les carregarà.
                 Un datalist per introduir la seva pel·lícula preferida
                 (aquest ha de començar amb 3 pel·lícules).
                 -->
-                <label for="pellicula">Pel·lícula preferida:</label>
-                <input list="movies" name="favMovie" id="pellicules">
-                <datalist id="pellicules">
+                <label for="favMovie">Pel·lícula preferida:</label>
+                <input list="movies" name="favMovie" id="favMovie">
+                <datalist id="movies">
                     <option value="El meu veí totoro"></option>
                     <option value="El castell ambulant"></option>
                     <option value="La Haru al regne dels gats"></option>
                 </datalist>
+                <span class="error-message" id="error-pelicula"></span><br>
                 <!-- 
                 Un select múltiple per marcar els gèneres de pel·lícula
                 favorits.
                 -->
-                <label for="generes">Gèneres preferits:</label>
-                <select name="generes" id="generes" multiple required>
+                <label for="genres">Gèneres preferits:</label>
+                <select id="genres" name="genres" multiple required>
                     <option value="aventura">Aventura</option>
                     <option value="misteri">Misteri</option>
                     <option value="terror">Terror</option>
                 </select>
+                <span class="error-message" id="error-genres"></span><br>
             </fieldset>
             <div class="buttons">
-                <button class="buttonstyle" id="button">Go back</button>
+                <button class="button" id="button">Go back</button>
                 <input class="buttonstyle" type="submit" value="Enviar">
             </div>
         </form>
