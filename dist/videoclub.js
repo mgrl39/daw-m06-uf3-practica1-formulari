@@ -92,4 +92,9 @@ function carregarDades() {
     mostrarClients(clients);
 }
 ;
+document.addEventListener("DOMContentLoaded", function () {
+    let button = document.getElementById("goToFormButton");
+    if (button)
+        button.addEventListener("click", () => { window.location.href = "formulari.html"; });
+});
 //# sourceMappingURL=videoclub.js.map

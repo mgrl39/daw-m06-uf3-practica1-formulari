@@ -35,8 +35,8 @@ comprovarà si hi ha dades guardades i les carregarà.
             <fieldset>
                 <legend>Dades personals</legend>
                 <!-- Un camp per introduir el nom complet -->
-                <label for="nom">Nom complet:</label>
-                <input type="text" placeholder="Haru" title="Escriu el teu nom!" name="nom" required><br>
+                <label for="nom">Nom complet:</label> 
+                <input type="text" placeholder="Haru" title="Escriu el teu nom!" id="nom" name="nom" required><br>
                 <!-- Un camp per introduir la data de naixement -->
                 <label for="dataNaixement">Data de Naixement:</label>
                 <input type="date" name="dataNaixement" id="dataNaixement" required><br>
@@ -61,9 +61,9 @@ comprovarà si hi ha dades guardades i les carregarà.
                 Un datalist per introduir la seva pel·lícula preferida
                 (aquest ha de començar amb 3 pel·lícules).
                 -->
-                <label for="favMovie">Pel·lícula preferida:</label>
-                <input list="movies" name="favMovie" id="favMovie">
-                <datalist id="pellicula">
+                <label for="pellicula">Pel·lícula preferida:</label>
+                <input list="movies" name="favMovie" id="pellicules">
+                <datalist id="pellicules">
                     <option value="El meu veí totoro"></option>
                     <option value="El castell ambulant"></option>
                     <option value="La Haru al regne dels gats"></option>
@@ -72,16 +72,15 @@ comprovarà si hi ha dades guardades i les carregarà.
                 Un select múltiple per marcar els gèneres de pel·lícula
                 favorits.
                 -->
-                <br>
-                <label for="genres">Gèneres preferits:</label>
-                <select name="genres" id="genres" multiple required>
+                <label for="generes">Gèneres preferits:</label>
+                <select name="generes" id="generes" multiple required>
                     <option value="aventura">Aventura</option>
                     <option value="misteri">Misteri</option>
                     <option value="terror">Terror</option>
                 </select>
             </fieldset>
             <div class="buttons">
-                <button class="buttonstyle" id="button">GO BACK</button>
+                <button class="buttonstyle" id="button">Go back</button>
                 <input class="buttonstyle" type="submit" value="Enviar">
             </div>
         </form>

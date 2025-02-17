@@ -115,3 +115,8 @@ function carregarDades(): void {
   afegirProducte("Pesadilla en Elm Street");
   mostrarClients(clients);
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+  let button : HTMLButtonElement | null = document.getElementById("goToFormButton") as HTMLButtonElement;
+  if (button) button.addEventListener("click", () => { window.location.href = "formulari.html" });
+});

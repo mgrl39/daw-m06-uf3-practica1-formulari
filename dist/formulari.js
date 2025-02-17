@@ -2,8 +2,14 @@
 // Variables
 const d = document;
 const INDEX = "index.html";
+const nomComplet = d.getElementById("nomComplet");
+const dataNaixement = d.getElementById("dataNaixement");
+const email = d.getElementById("emailPersona");
+const passwd = d.getElementById("password");
+const favMovie = d.getElementById("favMovie");
+const genres = d.getElementById("genres");
+const form = d.getElementById("mainForm");
 // Buttons principals
-let form = d.getElementById("formulari");
 let goToIndexButton = d.getElementById("button");
 // let sendToIndexButton: HTMLInputElement = d.getElementById("Enviar") as HTMLInputElement;
 // Event Listeners
@@ -14,7 +20,7 @@ form.addEventListener('submit', sendToIndex);
 function goToIndex() {
     window.location.href = INDEX;
 }
-const returnValue = (value) => d.getElementById(value).value;
+const returnValue = (value) => d.getElementById(value).value.trim();
 function sendToIndex(e) {
     e.preventDefault();
     inputIsInvalid();
@@ -32,5 +38,8 @@ function localStorageSaver() {
     let genere = d.getElementById("genere");
     let genereOptions = Array.from(genere.selectedOptions).map(option => option.value);
     localStorage.setItem("genere", JSON.stringify(genereOptions));
+}
+document.addEventListener("DOMContentLoaded", eventsInitializator);
+function eventsInitializator() {
 }
 //# sourceMappingURL=formulari.js.map
