@@ -31,7 +31,6 @@ comprovarà si hi ha dades guardades i les carregarà.
         han d'aparèixer directament al formulari amb missatges propis (no s’han
         d’utilitzar alerts). 
         -->
-        <button id="button">GO BACK</button>
         <form id="mainForm" action="index.html" method="GET">
             <fieldset>
                 <legend>Dades personals</legend>
@@ -44,19 +43,19 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <!--  Un camp per introduir el mail amb la seva validació -->
                 <label for="emailPersona">Correu electronic:</label>
                 <input type="email" placeholder="direccio@elpuig.xeill.net"
-                    pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" name="emailPersona" id="emailPersona"
-                    required><br>
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" 
+                    name="emailPersona" id="emailPersona" required>
                 <!-- 
                 Un camp per introduir una contrasenya (aquesta ha de
                 complir un patró on hi hagi almenys una lletra majúscula, una
                 minúscula, un nombre i la seva longitud sigui de 8 caràcters o
                 més).
-                -->
-                <label for="contrasenya" required></label>Contrasenya:</label>
-                <!--  ========>>> FALTA EL PATTERN!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                <input type="password" name="contrasenya" id="contrasenya"
-                    title="La contrasenya hi ha d'haver una lletra majuscula, minuscula, nom i la seva longitud ha de ser minimament de 8 caracters"
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
+                --><br>
+                <label for="password">Contrasenya:</label>
+                <input type="password" name="password" id="password"
+                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}" 
+                title="La contrasenya hi ha d'haver una lletra majuscula, minuscula, nom i la seva longitud ha de ser minimament de 8 caracters"
+                required>
             </fieldset>
             <fieldset>
                 <legend>Dades de la pel·lícula</legend>
@@ -64,6 +63,8 @@ comprovarà si hi ha dades guardades i les carregarà.
                 Un datalist per introduir la seva pel·lícula preferida
                 (aquest ha de començar amb 3 pel·lícules).
                 -->
+                <label for="favMovie">Pel·lícula preferida:</label>
+                <input list="movies" name="favMovie" id="favMovie">
                 <datalist id="pellicula">
                     <option value="El meu veí totoro"></option>
                     <option value="El castell ambulant"></option>
@@ -73,16 +74,20 @@ comprovarà si hi ha dades guardades i les carregarà.
                 Un select múltiple per marcar els gèneres de pel·lícula
                 favorits.
                 -->
-                <select id="generes" multiple>
+                <br>
+                <label for="genres">Gèneres preferits:</label>
+                <select name="genres" id="genres" multiple required>
                     <option value="aventura">Aventura</option>
                     <option value="misteri">Misteri</option>
                     <option value="terror">Terror</option>
                 </select>
             </fieldset>
             <div class="buttons">
-                <input type="submit" value="Enviar">
+                <button class="buttonstyle" id="button">GO BACK</button>
+                <input class="buttonstyle" type="submit" value="Enviar">
             </div>
         </form>
+
     </div>
 </body>
 

@@ -1,3 +1,21 @@
+class Client {
+  private nom: string;
+  private naixement: Date;
+  private email: string;
+  private password: string;
+  private pelicula: string;
+  private generes: string;
+
+  constructor(nom: string, naixement: Date, email: string, password: string, pelicula: string, generes: string) {
+    this.nom = nom;
+    this.naixement = naixement;
+    this.email = email;
+    this.password = password;
+    this.pelicula = pelicula;
+    this.generes = generes;
+  }
+}
+
 //Map que conté client i mail
 const clients: Map<string, string> = new Map<string, string>([
   ["Anna", "anna@example.com"],
@@ -17,7 +35,7 @@ function mostrarClients(clients: Map<string, string>): void {
   const clientList = document.getElementById("clientList")!;
   // Netejar llista anterior
   clientList.innerHTML = "";
-  
+
   //Comprovem cada valor de cada clau si el mail es correcte i si ho és, ho escrivim al HTML
   clients.forEach((value, key) => {
     if (isValidEmail(value)) {
@@ -55,7 +73,7 @@ function afegirProducte(productName?: string, platform?: string): void {
 function escriureTaula(titol: string, objectes: string[], objectes2?: string[]) {
   const tableContainer = document.getElementById("tableContainer")!;
   // Netejar informació anterior
-  tableContainer.innerHTML = ""; 
+  tableContainer.innerHTML = "";
 
   //Creem taula i capçalera amb les dades corresponents
   const table = document.createElement("table");
@@ -64,7 +82,7 @@ function escriureTaula(titol: string, objectes: string[], objectes2?: string[]) 
   table.appendChild(header);
 
   //Agafem el màxim entre les dos llistes per veure fins quin punt hem de recorrer
-  const maxLength = Math.max(objectes.length, objectes2? objectes2.length : 0);
+  const maxLength = Math.max(objectes.length, objectes2 ? objectes2.length : 0);
 
   //Creem per cada posició una fila i l'afegim
   for (let i = 0; i < maxLength; i++) {

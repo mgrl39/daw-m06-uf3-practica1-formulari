@@ -1,39 +1,32 @@
 "use strict";
 // Variables
 const d = document;
-const index = "index.html";
+const INDEX = "index.html";
 // Buttons principals
+let form = d.getElementById("formulari");
 let goToIndexButton = d.getElementById("button");
-let sendToIndexButton = d.getElementById("Enviar");
+// let sendToIndexButton: HTMLInputElement = d.getElementById("Enviar") as HTMLInputElement;
 // Event Listeners
+// sendToIndexButton.addEventListener('submit', sendToIndex);
 goToIndexButton.addEventListener('click', goToIndex);
-sendToIndexButton.addEventListener('submit', sendToIndex);
+form.addEventListener('submit', sendToIndex);
 // Functions
 function goToIndex() {
-    window.location.href = index;
-}
-function sendToIndex(e) {
-    e.preventDefault();
-    alert("XD");
+    window.location.href = INDEX;
 }
 // ===============
 //  LOCAL STORAGE
 // ===============
-const returnValue = function (value) {
-    return (d.getElementById(value).value);
-};
-let nomComplet = returnValue("nomComplet");
-let email = returnValue("email");
-let passwd = returnValue("contrasenya");
-let naixementData = d.getElementById("dataNaixement");
-let pelicula = d.getElementById("pellicula");
-let genere = d.getElementById("genere");
-localStorage.setItem("nom", nomComplet);
-localStorage.setItem("email", email);
-localStorage.setItem("passwd", passwd);
-localStorage.setItem("data", JSON.stringify(naixementData));
-localStorage.setItem("pelis", JSON.stringify(pelicula));
-localStorage.setItem("genere", JSON.stringify(genere));
-// No se si funcionara pero hago un alert pa enterarme de algo.
-// alert(localStorage);
+const returnValue = (value) => d.getElementById(value).value;
+function sendToIndex(e) {
+    e.preventDefault();
+    localStorage.setItem("nom", returnValue("nomComplet"));
+    localStorage.setItem("email", returnValue("email"));
+    localStorage.setItem("passwd", returnValue("passwd"));
+    localStorage.setItem("data", returnValue("dataNaixement"));
+    localStorage.setItem("pelis", returnValue("favMovie"));
+    let genere = d.getElementById("genere");
+    let genereOptions = Array.from(genere.selectedOptions).map(option => option.value);
+    localStorage.setItem("genere", JSON.stringify(genereOptions));
+}
 //# sourceMappingURL=formulari.js.map

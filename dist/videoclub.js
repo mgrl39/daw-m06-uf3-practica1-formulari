@@ -1,4 +1,14 @@
 "use strict";
+class Client {
+    constructor(nom, naixement, email, password, pelicula, generes) {
+        this.nom = nom;
+        this.naixement = naixement;
+        this.email = email;
+        this.password = password;
+        this.pelicula = pelicula;
+        this.generes = generes;
+    }
+}
 //Map que conté client i mail
 const clients = new Map([
     ["Anna", "anna@example.com"],

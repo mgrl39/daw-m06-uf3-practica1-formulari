@@ -1,44 +1,36 @@
 // Variables
 const d: Document = document;
-const index: string = "index.html";
+const INDEX: string = "index.html";
 
 // Buttons principals
+let form: HTMLFormElement = d.getElementById("formulari") as HTMLFormElement;
 let goToIndexButton: HTMLButtonElement = d.getElementById("button") as HTMLButtonElement;
-let sendToIndexButton: HTMLInputElement = d.getElementById("Enviar") as HTMLInputElement;
+// let sendToIndexButton: HTMLInputElement = d.getElementById("Enviar") as HTMLInputElement;
 
 // Event Listeners
+// sendToIndexButton.addEventListener('submit', sendToIndex);
 goToIndexButton.addEventListener('click', goToIndex);
-sendToIndexButton.addEventListener('submit', sendToIndex);
+form.addEventListener('submit', sendToIndex);
 
 // Functions
 function goToIndex() {
-    window.location.href = index;
-}
-
-function sendToIndex(e: Event) {
-    e.preventDefault();
-    alert("XD");
+    window.location.href = INDEX;
 }
 
 // ===============
 //  LOCAL STORAGE
 // ===============
-const returnValue = function (value: string): string {
-    return ((d.getElementById(value) as HTMLInputElement).value);
+const returnValue = (value: string): string => (d.getElementById(value) as HTMLInputElement).value;
+
+function sendToIndex(e: Event) {
+    e.preventDefault();
+    localStorage.setItem("nom", returnValue("nomComplet"));
+    localStorage.setItem("email", returnValue("email"));
+    localStorage.setItem("passwd", returnValue("passwd"));
+    localStorage.setItem("data", returnValue("dataNaixement"));
+    localStorage.setItem("pelis", returnValue("favMovie"));
+
+    let genere: HTMLSelectElement = d.getElementById("genere") as HTMLSelectElement;
+    let genereOptions: string[] = Array.from(genere.selectedOptions).map(option => option.value);
+    localStorage.setItem("genere", JSON.stringify(genereOptions));
 }
-
-let nomComplet: string = returnValue("nomComplet");
-let email: string = returnValue("email");
-let passwd: string = returnValue("contrasenya");
-let naixementData: HTMLSpanElement = d.getElementById("dataNaixement") as HTMLSpanElement;
-let pelicula: HTMLDataListElement = d.getElementById("pellicula") as HTMLDataListElement;
-let genere: HTMLSelectElement = d.getElementById("genere") as HTMLSelectElement;
-
-localStorage.setItem("nom", nomComplet);
-localStorage.setItem("email", email);
-localStorage.setItem("passwd", passwd);
-localStorage.setItem("data", JSON.stringify(naixementData));
-localStorage.setItem("pelis", JSON.stringify(pelicula));
-localStorage.setItem("genere", JSON.stringify(genere));
-// No se si funcionara pero hago un alert pa enterarme de algo.
-// alert(localStorage);

@@ -1,6 +1,6 @@
 .container {
     background-color: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 150px rgba(0, 0, 0, 1);
     border-radius: 2%;
 }
 
@@ -17,37 +17,56 @@
     z-index: -1;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
     text-align: center;
     color: green;
 }
 
-button {
-    padding: 10px;
-    background-color: lightcoral;
+body {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 50%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.buttonstyle {
+    padding: 12px;
+    background-color: #89b48d;
     color: white;
-    border: red;
-    border-radius: 30%;
+    border: none;
+    border-radius: 20px;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    font-size: 16px;
+}
+
+legend {
+    font-size: 18px;
+    font-weight: bold;
+    color: #3a533d;
+    padding: 5px 10px;
+    background: #89b48d;
+    border-radius: 5px;
+    border: 2px solid #3a533d;
 }
 
 button:hover {
-    background-color: gray;
+    background-color: #555;
 }
 
 fieldset {
-    border-radius: 2%;
+    border: 3px solid #3c463d;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
 }
 
 div {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     width: 50%;
-}
-
-input {
-    margin: 5px;
 }
