@@ -14,12 +14,16 @@ form.addEventListener('submit', sendToIndex);
 function goToIndex() {
     window.location.href = INDEX;
 }
-// ===============
-//  LOCAL STORAGE
-// ===============
 const returnValue = (value) => d.getElementById(value).value;
 function sendToIndex(e) {
     e.preventDefault();
+    inputIsInvalid();
+    localStorageSaver();
+}
+function inputIsInvalid() {
+    console.log("FALTA IMPLEMENTAR");
+}
+function localStorageSaver() {
     localStorage.setItem("nom", returnValue("nomComplet"));
     localStorage.setItem("email", returnValue("email"));
     localStorage.setItem("passwd", returnValue("passwd"));

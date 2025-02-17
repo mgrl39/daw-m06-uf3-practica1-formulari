@@ -17,13 +17,20 @@ function goToIndex() {
     window.location.href = INDEX;
 }
 
-// ===============
-//  LOCAL STORAGE
-// ===============
-const returnValue = (value: string): string => (d.getElementById(value) as HTMLInputElement).value;
+const returnValue = (value: string): string => (d.getElementById(value) as HTMLInputElement).value.trim();
 
 function sendToIndex(e: Event) {
     e.preventDefault();
+    inputIsInvalid();
+    localStorageSaver();
+}
+
+function inputIsInvalid() {
+    console.log("FALTA IMPLEMENTAR");
+}
+
+function localStorageSaver() : void
+{
     localStorage.setItem("nom", returnValue("nomComplet"));
     localStorage.setItem("email", returnValue("email"));
     localStorage.setItem("passwd", returnValue("passwd"));
