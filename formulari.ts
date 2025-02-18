@@ -51,6 +51,7 @@ function goToIndex(): void {
     window.location.href = INDEX;
 }
 
+// <==> Clear Errors <==>
 function clearErrors(): void {
     nomComplet.value = "";
     dataNaixement.value = "";
@@ -62,10 +63,10 @@ function clearErrors(): void {
     // document.querySelectorAll(".error").forEach(el => el.textContent = "");
 }
 
+// <==> Return Value <==>
 const returnValue = (value: string): string => (d.getElementById(value) as HTMLInputElement).value.trim();
-// const emailRegex: RegExp = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-// const passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
+// <==> Send To Index <==>
 function sendToIndex(e: Event): void {
     e.preventDefault();
     inputIsInvalid();
@@ -103,6 +104,5 @@ function validateForm(e: Event): void {
             hasErrors = true;
         }
     });
-    if (!hasErrors)
-        form.submit();
+    if (!hasErrors) form.submit();
 }

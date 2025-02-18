@@ -47,6 +47,7 @@ function initializeValues() {
 function goToIndex() {
     window.location.href = INDEX;
 }
+// <==> Clear Errors <==>
 function clearErrors() {
     nomComplet.value = "";
     dataNaixement.value = "";
@@ -57,9 +58,9 @@ function clearErrors() {
     // form.reset();
     // document.querySelectorAll(".error").forEach(el => el.textContent = "");
 }
+// <==> Return Value <==>
 const returnValue = (value) => d.getElementById(value).value.trim();
-// const emailRegex: RegExp = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-// const passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+// <==> Send To Index <==>
 function sendToIndex(e) {
     e.preventDefault();
     inputIsInvalid();
