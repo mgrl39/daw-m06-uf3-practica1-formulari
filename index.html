@@ -13,15 +13,19 @@
 
   <h1>Videoclub</h1>
 
+  <section id="form">
+    <button id="goToFormButton">Formulari</button>
+  </section>
+
   <section id="clients">
     <h2>Llista de clients</h2>
     <ul id="clientList"></ul>
   </section>
 
   <section id="addItem">
-    <h2>Afegir Pel·lícules o Videojocs</h2>
-    <input type="text" id="itemInput" placeholder="Nom o Nom, Plataforma">
-    <button onclick="afegirProducte()">Afegir</button>
+    <h2>Afegir Pel·lícules o Videojocs</h3>
+      <input type="text" id="itemInput" placeholder="Nom o Nom, Plataforma">
+      <button onclick="afegirProducte()">Afegir</button>
   </section>
 
   <section id="displayItems">
@@ -32,10 +36,6 @@
       <button onclick="mostrarDades()">Mostrar Tot</button>
     </div>
     <div id="tableContainer"></div>
-  </section>
-  
-  <section id="form">
-      <button id="goToFormButton">Formulari</button>
   </section>
 
 </body>

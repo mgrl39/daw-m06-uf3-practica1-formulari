@@ -18,7 +18,7 @@ comprovarà si hi ha dades guardades i les carregarà.
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="./dist/formulari.js"></script>
+    <script src="./dist/formulari.js"></script>
     <link rel="stylesheet" href="formulari.css">
 </head>
 
@@ -26,35 +26,34 @@ comprovarà si hi ha dades guardades i les carregarà.
     <div class="background-image"></div>
     <div class="container">
         <h1>Formulari</h1>
-        <!-- 
-        S’ha d'enviar amb un GET a la pàgina principal. Tots els avisos d’errors
-        han d'aparèixer directament al formulari amb missatges propis (no s’han
-        d’utilitzar alerts). 
-        -->
+        <!-- S’ha d'enviar amb un GET a la pàgina principal.  -->
+        <!-- Tots els avisos d’errors han d'aparèixer al form amb missatges propis  -->
         <form id="mainForm" action="index.html" method="GET">
             <fieldset>
                 <legend>Dades personals</legend>
                 <!-- Un camp per introduir el nom complet -->
-                <label for="nom">Nom complet:</label> 
-                <input type="text" placeholder="Haru" title="Escriu el teu nom!" id="nom" name="nom" required><br>
+                <label for="nomComplet">Nom complet:</label>
+                <input type="text" placeholder="Haru" title="Escriu el teu nom!" id="nomComplet" name="nomComplet" required><br>
                 <span class="error-message" id="error-nom"></span><br>
 
                 <!-- Un camp per introduir la data de naixement -->
                 <label for="dataNaixement">Data de Naixement:</label>
                 <input type="date" name="dataNaixement" id="dataNaixement" required><br>
                 <span class="error-message" id="error-data"></span><br>
-                
+
                 <!--  Un camp per introduir el mail amb la seva validació -->
                 <label for="emailPersona">Correu electronic:</label>
+                <!-- 
                 <input type="email" placeholder="direccio@elpuig.xeill.net"
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" name="emailPersona" id="emailPersona" required>
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="emailPersona" id="emailPersona" required>
+                -->
+                <input type="email" placeholder="direccio@elpuig.xeill.net" name="emailPersona" id="emailPersona" required>
                 <span class="error-message" id="error-email"></span><br>
                 <!-- 
-                Un camp per introduir una contrasenya (aquesta ha de
-                complir un patró on hi hagi almenys una lletra majúscula, una
-                minúscula, un nombre i la seva longitud sigui de 8 caràcters o
-                més).
-                --><br>
+                Un camp per introduir una password, patró:
+                una majúscula, una minúscula, un nombre, 8 o + caracters.
+                -->
+                <br>
                 <label for="password">Contrasenya:</label>
                 <input type="password" name="password" id="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}"
                     title="La contrasenya hi ha d'haver una lletra majuscula, minuscula, nom i la seva longitud ha de ser minimament de 8 caracters"
@@ -79,20 +78,19 @@ comprovarà si hi ha dades guardades i les carregarà.
                 Un select múltiple per marcar els gèneres de pel·lícula
                 favorits.
                 -->
-                <label for="genres">Gèneres preferits:</label>
-                <select id="genres" name="genres" multiple required>
+                <label for="generes">Gèneres preferits:</label>
+                <select id="generes" name="generes" multiple required>
                     <option value="aventura">Aventura</option>
                     <option value="misteri">Misteri</option>
                     <option value="terror">Terror</option>
                 </select>
-                <span class="error-message" id="error-genres"></span><br>
+                <span class="error-message" id="error-generes"></span><br>
             </fieldset>
             <div class="buttons">
-                <button class="button" id="button">Go back</button>
+                <button class="buttonstyle" id="button">Go back</button>
                 <input class="buttonstyle" type="submit" value="Enviar">
             </div>
         </form>
-
     </div>
 </body>
 

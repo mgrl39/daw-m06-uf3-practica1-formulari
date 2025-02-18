@@ -16,8 +16,12 @@ class Client {
   }
 }
 
+let clients: Client[] = [];
+
+const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
 //Map que conté client i mail
-const clients: Map<string, string> = new Map<string, string>([
+const clients_map: Map<string, string> = new Map<string, string>([
   ["Anna", "anna@example.com"],
   ["Joan", "joan@example.com"],
   ["Maria", "invalidemail"],
@@ -28,7 +32,6 @@ const movies: string[] = [];
 const games: string[] = [];
 
 // Funció fletxa per validar emails
-const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 // Funció per mostrar clients
 function mostrarClients(clients: Map<string, string>): void {
@@ -113,10 +116,13 @@ function mostrarDades(tipus?: string): void {
 function carregarDades(): void {
   afegirProducte("Final Fantasy X, PS2");
   afegirProducte("Pesadilla en Elm Street");
-  mostrarClients(clients);
+  mostrarClients(clients_map);
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  let button : HTMLButtonElement | null = document.getElementById("goToFormButton") as HTMLButtonElement;
-  if (button) button.addEventListener("click", () => { window.location.href = "formulari.html" });
+document.addEventListener("DOMContentLoaded", () => {
+  const button: HTMLButtonElement = document.getElementById("goToFormButton") as HTMLButtonElement;
+  if (!button) return console.error("Botó no trobat.");
+  const existingClients: string | null = localStorage.getItem("clients");
+  if (!existingClients) localStorage.setItem("clients", JSON.stringify(clients));
+  button.addEventListener("click", () => { window.location.href = "formulari.html" });
 });

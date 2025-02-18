@@ -2,25 +2,64 @@
 // Variables
 const d = document;
 const INDEX = "index.html";
-const nomComplet = d.getElementById("nomComplet");
-const dataNaixement = d.getElementById("dataNaixement");
-const email = d.getElementById("emailPersona");
-const passwd = d.getElementById("password");
-const favMovie = d.getElementById("favMovie");
-const genres = d.getElementById("genres");
-const form = d.getElementById("mainForm");
-// Buttons principals
-let goToIndexButton = d.getElementById("button");
-// let sendToIndexButton: HTMLInputElement = d.getElementById("Enviar") as HTMLInputElement;
-// Event Listeners
-// sendToIndexButton.addEventListener('submit', sendToIndex);
-goToIndexButton.addEventListener('click', goToIndex);
-form.addEventListener('submit', validateForm);
-// Functions
+//const sendToIndexButton: HTMLButtonElement = d.getElementById("button") as HTMLButtonElement;
+let nomComplet;
+let dataNaixement;
+let email;
+let passwd;
+let favMovie;
+let generes;
+let form;
+let goToIndexButton;
+const errorTipus = new Map([
+    ["error-nom", "El nom no pot estar buit."],
+    ["error-data", "La data de naixement no pot estar buida."],
+    ["error-email", "El correu no és vàlid."],
+    ["error-password", "La contrasenya no compleix els requisits."],
+    ["error-pelicula", "Has d'escollir una pel·lícula."],
+    ["error-generes", "Has de seleccionar almenys un gènere."],
+    ["error-default", "Ha hagut un error."]
+]);
+// <==> Validacions <==>
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+const isThisEmailValid = (email) => emailRegex.test(email);
+const isThisPasswordValid = (password) => passwordRegex.test(password);
+// <==> Inicialització <==>
+d.addEventListener('DOMContentLoaded', () => {
+    initializeValues();
+    if (form)
+        form.addEventListener('submit', validateForm);
+    if (goToIndexButton)
+        goToIndexButton.addEventListener('click', goToIndex);
+});
+function initializeValues() {
+    nomComplet = d.getElementById("nomComplet");
+    dataNaixement = d.getElementById("dataNaixement");
+    email = d.getElementById("emailPersona");
+    passwd = d.getElementById("password");
+    favMovie = d.getElementById("favMovie");
+    generes = d.getElementById("generes");
+    form = d.getElementById("mainForm");
+    goToIndexButton = d.getElementById("button");
+}
+// <==> Buttons principals <==>
 function goToIndex() {
     window.location.href = INDEX;
 }
+function clearErrors() {
+    nomComplet.value = "";
+    dataNaixement.value = "";
+    email.value = "";
+    passwd.value = "";
+    favMovie.value = "";
+    generes.value = "";
+    // form.reset();
+    // document.querySelectorAll(".error").forEach(el => el.textContent = "");
+}
 const returnValue = (value) => d.getElementById(value).value.trim();
+// const emailRegex: RegExp = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+// const passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 function sendToIndex(e) {
     e.preventDefault();
     inputIsInvalid();
@@ -30,52 +69,32 @@ function inputIsInvalid() {
     console.log("FALTA IMPLEMENTAR");
 }
 // Funció per mostrar missatges d'error
-const showError = (elementId, message) => {
+const showError = (elementId) => {
     const errorElement = document.getElementById(elementId);
-    errorElement.textContent = message;
+    const errorMessage = errorTipus.get(elementId);
+    if (errorMessage)
+        errorElement.textContent = errorMessage;
 };
 function validateForm(e) {
     e.preventDefault();
-    let valid = true;
-    document.querySelectorAll(".error-message").forEach(el => el.textContent = "");
-    if (nomComplet.value.trim().length == 0) {
-        showError("error-nom", "El nom no pot estar buit.");
-        valid = false;
-    }
-    if (!dataNaixement.value) {
-        showError("error-data", "La data de naixement no pot estar buida.");
-        valid = false;
-    }
-    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (!emailRegex.test(email.value)) {
-        showError("error-email", "El correu no és vàlid.");
-        valid = false;
-    }
-    if (!passwordRegex.test(passwd.value)) {
-        showError("error-password", "La contrasenya no compleix els requisits.");
-        valid = false;
-    }
-    if (favMovie.value.trim() == "") {
-        showError("error-pelicula", "Has d'escollir una pel·lícula.");
-        valid = false;
-    }
-    if (genres.selectedOptions.length == 0) {
-        showError("error-genres", "Has de seleccionar almenys un gènere.");
-        valid = false;
-    }
-    if (valid) {
-        localStorageSaver();
+    alert("validateForm");
+    clearErrors();
+    let hasErrors = false;
+    const validations = new Map([
+        [nomComplet.value.trim().length == 0, "error-nom"],
+        [generes.selectedOptions.length == 0, "error-generes"],
+        [!dataNaixement.value, "error-data"],
+        [!isThisEmailValid(email.value), "error-email"],
+        [!isThisPasswordValid(passwd.value), "error-password"],
+        [favMovie.value.trim() == "", "error-pelicula"]
+    ]);
+    validations.forEach((errorId, condition) => {
+        if (condition) {
+            showError(errorId);
+            hasErrors = true;
+        }
+    });
+    if (!hasErrors)
         form.submit();
-    }
-}
-function localStorageSaver() {
-    localStorage.setItem("nomComplet", nomComplet.value.trim());
-    localStorage.setItem("dataNaixement", dataNaixement.value);
-    localStorage.setItem("emailPersona", email.value.trim());
-    localStorage.setItem("password", passwd.value);
-    localStorage.setItem("favMovie", favMovie.value);
-    let genresSelected = Array.from(genres.selectedOptions).map(option => option.value);
-    localStorage.setItem("genres", JSON.stringify(genresSelected));
 }
 //# sourceMappingURL=formulari.js.map

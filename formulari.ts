@@ -2,29 +2,69 @@
 const d: Document = document;
 const INDEX: string = "index.html";
 
-const nomComplet: HTMLInputElement = d.getElementById("nomComplet") as HTMLInputElement;
-const dataNaixement: HTMLInputElement = d.getElementById("dataNaixement") as HTMLInputElement;
-const email: HTMLInputElement = d.getElementById("emailPersona") as HTMLInputElement;
-const passwd: HTMLInputElement = d.getElementById("password") as HTMLInputElement;
-const favMovie: HTMLInputElement = d.getElementById("favMovie") as HTMLInputElement;
-const genres: HTMLSelectElement = d.getElementById("genres") as HTMLSelectElement;
-const form: HTMLFormElement = d.getElementById("mainForm") as HTMLFormElement;
+//const sendToIndexButton: HTMLButtonElement = d.getElementById("button") as HTMLButtonElement;
+let nomComplet: HTMLInputElement;
+let dataNaixement: HTMLInputElement;
+let email: HTMLInputElement;
+let passwd: HTMLInputElement;
+let favMovie: HTMLInputElement;
+let generes: HTMLSelectElement;
+let form: HTMLFormElement;
+let goToIndexButton: HTMLButtonElement;
 
-// Buttons principals
-let goToIndexButton: HTMLButtonElement = d.getElementById("button") as HTMLButtonElement;
-// let sendToIndexButton: HTMLInputElement = d.getElementById("Enviar") as HTMLInputElement;
+const errorTipus: Map<string, string> = new Map([
+    ["error-nom", "El nom no pot estar buit."],
+    ["error-data", "La data de naixement no pot estar buida."],
+    ["error-email", "El correu no és vàlid."],
+    ["error-password", "La contrasenya no compleix els requisits."],
+    ["error-pelicula", "Has d'escollir una pel·lícula."],
+    ["error-generes", "Has de seleccionar almenys un gènere."],
+    ["error-default", "Ha hagut un error."]
+]);
 
-// Event Listeners
-// sendToIndexButton.addEventListener('submit', sendToIndex);
-goToIndexButton.addEventListener('click', goToIndex);
-form.addEventListener('submit', validateForm);
+// <==> Validacions <==>
+const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+const isThisEmailValid = (email: string): boolean => emailRegex.test(email);
+const isThisPasswordValid = (password: string): boolean => passwordRegex.test(password);
 
-// Functions
+// <==> Inicialització <==>
+d.addEventListener('DOMContentLoaded', () => {
+    initializeValues();
+    if (form) form.addEventListener('submit', validateForm);
+    if (goToIndexButton) goToIndexButton.addEventListener('click', goToIndex);
+});
+
+function initializeValues(): void {
+    nomComplet = d.getElementById("nomComplet") as HTMLInputElement;
+    dataNaixement = d.getElementById("dataNaixement") as HTMLInputElement;
+    email = d.getElementById("emailPersona") as HTMLInputElement;
+    passwd = d.getElementById("password") as HTMLInputElement;
+    favMovie = d.getElementById("favMovie") as HTMLInputElement;
+    generes = d.getElementById("generes") as HTMLSelectElement
+    form = d.getElementById("mainForm") as HTMLFormElement;
+    goToIndexButton = d.getElementById("button") as HTMLButtonElement;
+}
+
+// <==> Buttons principals <==>
 function goToIndex(): void {
     window.location.href = INDEX;
 }
 
+function clearErrors(): void {
+    nomComplet.value = "";
+    dataNaixement.value = "";
+    email.value = "";
+    passwd.value = "";
+    favMovie.value = "";
+    generes.value = "";
+    // form.reset();
+    // document.querySelectorAll(".error").forEach(el => el.textContent = "");
+}
+
 const returnValue = (value: string): string => (d.getElementById(value) as HTMLInputElement).value.trim();
+// const emailRegex: RegExp = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+// const passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
 function sendToIndex(e: Event): void {
     e.preventDefault();
@@ -37,55 +77,32 @@ function inputIsInvalid(): void {
 }
 
 // Funció per mostrar missatges d'error
-const showError = (elementId: string, message: string): void => {
+const showError = (elementId: string): void => {
     const errorElement: HTMLSpanElement = document.getElementById(elementId) as HTMLSpanElement;
-    errorElement.textContent = message;
+    const errorMessage: string | undefined = errorTipus.get(elementId);
+    if (errorMessage) errorElement.textContent = errorMessage;
 };
 
 function validateForm(e: Event): void {
     e.preventDefault();
-    let valid: boolean = true;
+    alert("validateForm");
+    clearErrors();
 
-    document.querySelectorAll(".error-message").forEach(el => el.textContent = "");
-    if (nomComplet.value.trim().length == 0) {
-        showError("error-nom", "El nom no pot estar buit.");
-        valid = false;
-    }
-    if (!dataNaixement.value) {
-        showError("error-data", "La data de naixement no pot estar buida.");
-        valid = false;
-    }
-    const emailRegex : RegExp = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-    const passwordRegex : RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (!emailRegex.test(email.value)) {
-        showError("error-email", "El correu no és vàlid.");
-        valid = false;
-    }
-    if (!passwordRegex.test(passwd.value)) {
-        showError("error-password", "La contrasenya no compleix els requisits.");
-        valid = false;
-    }
-    if (favMovie.value.trim() == "") {
-        showError("error-pelicula", "Has d'escollir una pel·lícula.");
-        valid = false;
-    }
-    if (genres.selectedOptions.length == 0) {
-        showError("error-genres", "Has de seleccionar almenys un gènere.");
-        valid = false;
-    }
-    if (valid) {
-        localStorageSaver();
+    let hasErrors: boolean = false;
+    const validations: Map<boolean, string> = new Map([
+        [nomComplet.value.trim().length == 0, "error-nom"],
+        [generes.selectedOptions.length == 0, "error-generes"],
+        [!dataNaixement.value, "error-data"],
+        [!isThisEmailValid(email.value), "error-email"],
+        [!isThisPasswordValid(passwd.value), "error-password"],
+        [favMovie.value.trim() == "", "error-pelicula"]
+    ]);
+    validations.forEach((errorId: string, condition: boolean) => {
+        if (condition) {
+            showError(errorId);
+            hasErrors = true;
+        }
+    });
+    if (!hasErrors)
         form.submit();
-    }
-}
-
-function localStorageSaver(): void {
-    localStorage.setItem("nomComplet", nomComplet.value.trim());
-    localStorage.setItem("dataNaixement", dataNaixement.value);
-    localStorage.setItem("emailPersona", email.value.trim());
-    localStorage.setItem("password", passwd.value);
-    localStorage.setItem("favMovie", favMovie.value);
-    
-    let genresSelected = Array.from(genres.selectedOptions).map(option => option.value);
-    localStorage.setItem("genres", JSON.stringify(genresSelected));
 }

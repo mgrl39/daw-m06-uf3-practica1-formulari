@@ -9,8 +9,10 @@ class Client {
         this.generes = generes;
     }
 }
+let clients = [];
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 //Map que conté client i mail
-const clients = new Map([
+const clients_map = new Map([
     ["Anna", "anna@example.com"],
     ["Joan", "joan@example.com"],
     ["Maria", "invalidemail"],
@@ -19,7 +21,6 @@ const clients = new Map([
 const movies = [];
 const games = [];
 // Funció fletxa per validar emails
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 // Funció per mostrar clients
 function mostrarClients(clients) {
     const clientList = document.getElementById("clientList");
@@ -89,12 +90,16 @@ function mostrarDades(tipus) {
 function carregarDades() {
     afegirProducte("Final Fantasy X, PS2");
     afegirProducte("Pesadilla en Elm Street");
-    mostrarClients(clients);
+    mostrarClients(clients_map);
 }
 ;
-document.addEventListener("DOMContentLoaded", function () {
-    let button = document.getElementById("goToFormButton");
-    if (button)
-        button.addEventListener("click", () => { window.location.href = "formulari.html"; });
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("goToFormButton");
+    if (!button)
+        return console.error("Botó no trobat.");
+    const existingClients = localStorage.getItem("clients");
+    if (!existingClients)
+        localStorage.setItem("clients", JSON.stringify(clients));
+    button.addEventListener("click", () => { window.location.href = "formulari.html"; });
 });
 //# sourceMappingURL=videoclub.js.map
