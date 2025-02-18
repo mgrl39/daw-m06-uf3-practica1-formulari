@@ -78,24 +78,30 @@ const showError = (elementId) => {
 };
 function validateForm(e) {
     e.preventDefault();
-    alert("validateForm");
+    console.clear();
+    console.log("Longitud del nom: ", nomComplet.value.trim().length);
+    console.log("Nom complet: ", nomComplet.value.trim());
+    console.log("Generes: ", generes.selectedOptions.length);
+    console.log("Data de naixement: ", dataNaixement.value);
+    console.log("Correu: ", isThisEmailValid(email.value));
+    console.log("Contrasenya: ", isThisPasswordValid(passwd.value));
+    console.log("Pel·lícula: ", favMovie.value.trim());
     clearErrors();
     let hasErrors = false;
-    const validations = new Map([
-        [nomComplet.value.trim().length == 0, "error-nom"],
-        [generes.selectedOptions.length == 0, "error-generes"],
-        [!dataNaixement.value, "error-data"],
-        [!isThisEmailValid(email.value), "error-email"],
-        [!isThisPasswordValid(passwd.value), "error-password"],
-        [favMovie.value.trim() == "", "error-pelicula"]
-    ]);
-    validations.forEach((errorId, condition) => {
-        if (condition) {
-            showError(errorId);
-            hasErrors = true;
-        }
-    });
-    if (!hasErrors)
+    const validations = [
+        { condition: !nomComplet.value.trim().length, errorId: "error-nom" },
+        { condition: !dataNaixement.value, errorId: "error-data" },
+        { condition: !favMovie.value.trim(), errorId: "error-pelicula" },
+        { condition: !isThisEmailValid(email.value), errorId: "error-email" },
+        { condition: !isThisPasswordValid(passwd.value), errorId: "error-password" },
+        { condition: generes.selectedOptions.length == 0, errorId: "error-generes" },
+    ];
+    const errors = validations
+        .filter(validation => validation.condition)
+        .map(validation => validation.errorId);
+    console.log(errors);
+    errors.forEach(error => showError(error));
+    if (errors.length == 0)
         form.submit();
 }
 //# sourceMappingURL=formulari.js.map
