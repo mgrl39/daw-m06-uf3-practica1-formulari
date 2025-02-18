@@ -1,17 +1,26 @@
-// Variables
+// Definició de les variables
 const d: Document = document;
 const INDEX: string = "index.html";
 
-//const sendToIndexButton: HTMLButtonElement = d.getElementById("button") as HTMLButtonElement;
+// Definició del tipus de les validacions
+type Validation = {
+    condition: boolean;
+    errorId: string;
+};
+
+// Definició de les variables
 let nomComplet: HTMLInputElement;
 let dataNaixement: HTMLInputElement;
 let email: HTMLInputElement;
 let passwd: HTMLInputElement;
-let favMovie: HTMLInputElement;
+let pelPreferida: HTMLInputElement;
 let generes: HTMLSelectElement;
 let form: HTMLFormElement;
 let goToIndexButton: HTMLButtonElement;
+let cleanErrorsButton: HTMLButtonElement;
 
+// Declaro un mapa que defineix el tipus de les validacions.
+// Conté el missatge d'error per cada tipus de validació.
 const errorTipus: Map<string, string> = new Map([
     ["error-nom", "El nom no pot estar buit."],
     ["error-data", "La data de naixement no pot estar buida."],
@@ -22,75 +31,78 @@ const errorTipus: Map<string, string> = new Map([
     ["error-default", "Ha hagut un error."]
 ]);
 
-// <==> Validacions <==>
+// Validacions: tenim el patró per a l'email i la password. Juntament amb la funció per a comprovar si és vàlid.
 const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 const isThisEmailValid = (email: string): boolean => emailRegex.test(email);
 const isThisPasswordValid = (password: string): boolean => passwordRegex.test(password);
 
-// <==> Inicialització <==>
+// Inicialització de les variables i afegim event listeners.
 d.addEventListener('DOMContentLoaded', () => {
     initializeValues();
     if (form) form.addEventListener('submit', validateForm);
     if (goToIndexButton) goToIndexButton.addEventListener('click', goToIndex);
+    if (cleanErrorsButton) cleanErrorsButton.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        clearErrors();
+    });
+    email.addEventListener("blur", () => validateValue(email.value, emailRegex, "error-email"));
+    email.addEventListener("input", () => validateValue(email.value, emailRegex, "error-email"));
+    passwd.addEventListener("blur", () => validateValue(passwd.value, passwordRegex, "error-password"));
+    passwd.addEventListener("input", () => validateValue(passwd.value, passwordRegex, "error-password"));
 });
 
+function validateValue(value: string, regex: RegExp, errorId: string) : void {
+    const errorElement : HTMLSpanElement = d.getElementById(errorId)!;
+    errorElement.textContent = regex.test(value) ? "" : errorTipus.get(errorId)!;
+}
+
+d.addEventListener("keydown", (e: KeyboardEvent) => {
+    if (e.key == "Enter") {
+        e.preventDefault();
+        validateForm(e);
+    }
+});
+
+
+// Inicialització de les variables
 function initializeValues(): void {
     nomComplet = d.getElementById("nomComplet") as HTMLInputElement;
     dataNaixement = d.getElementById("dataNaixement") as HTMLInputElement;
     email = d.getElementById("emailPersona") as HTMLInputElement;
     passwd = d.getElementById("password") as HTMLInputElement;
-    favMovie = d.getElementById("favMovie") as HTMLInputElement;
+    pelPreferida = d.getElementById("pelPreferida") as HTMLInputElement;
     generes = d.getElementById("generes") as HTMLSelectElement
     form = d.getElementById("mainForm") as HTMLFormElement;
     goToIndexButton = d.getElementById("button") as HTMLButtonElement;
+    cleanErrorsButton = d.getElementById("cleanErrors") as HTMLButtonElement;
 }
 
-// <==> Buttons principals <==>
-function goToIndex(): void {
+// Funció per anar a l'índex
+const goToIndex = (e: Event): void => {
+    e.preventDefault();
     window.location.href = INDEX;
-}
-
-// <==> Clear Errors <==>
-function clearErrors(): void {
-    nomComplet.value = "";
-    dataNaixement.value = "";
-    email.value = "";
-    passwd.value = "";
-    favMovie.value = "";
-    generes.value = "";
-    // form.reset();
-    // document.querySelectorAll(".error").forEach(el => el.textContent = "");
-}
-
-type Validation = {
-    condition: boolean;
-    errorId: string;
 };
 
-// <==> Return Value <==>
-const returnValue = (value: string): string => (d.getElementById(value) as HTMLInputElement).value.trim();
-
-// <==> Send To Index <==>
-function sendToIndex(e: Event): void {
-    e.preventDefault();
-    inputIsInvalid();
-    // localStorageSaver();
-}
-
-function inputIsInvalid(): void {
-    console.log("FALTA IMPLEMENTAR");
+// Funció per esborrar errors
+function clearErrors(): void {
+    const errorElements: HTMLSpanElement[] = Array.from(d.querySelectorAll(".error-message"));
+    //console.log(errorElements);
+    //errorElements.forEach((element : HTMLSpanElement) => console.log(element.textContent));
+    errorElements.forEach((element: HTMLSpanElement) => element.textContent = "");
 }
 
 // Funció per mostrar missatges d'error
 const showError = (elementId: string): void => {
-    const errorElement: HTMLSpanElement = document.getElementById(elementId) as HTMLSpanElement;
-    const errorMessage: string | undefined = errorTipus.get(elementId);
-    if (errorMessage) errorElement.textContent = errorMessage;
+    const errorElement: HTMLSpanElement = d.getElementById(elementId) as HTMLSpanElement;
+    if (errorElement) {
+        const errorMessage: string | undefined = errorTipus.get(elementId);
+        if (errorMessage) errorElement.textContent = errorMessage;
+    }
 };
 
-function validateForm(e: Event): void {
-    e.preventDefault();
+// Funció per imprimir informació.
+function printInfo(): void {
     console.clear();
     console.log("Longitud del nom: ", nomComplet.value.trim().length);
     console.log("Nom complet: ", nomComplet.value.trim());
@@ -98,24 +110,29 @@ function validateForm(e: Event): void {
     console.log("Data de naixement: ", dataNaixement.value);
     console.log("Correu: ", isThisEmailValid(email.value));
     console.log("Contrasenya: ", isThisPasswordValid(passwd.value));
-    console.log("Pel·lícula: ", favMovie.value.trim());
-    clearErrors();
+    console.log("Pel·lícula: ", pelPreferida.value.trim());
+}
 
-    let hasErrors: boolean = false;
+// Funció per validar el formulari
+function validateForm(e: Event): void {
+    e.preventDefault();
+    clearErrors();
+    // printInfo();
+
     const validations: Validation[] = [
         { condition: !nomComplet.value.trim().length, errorId: "error-nom" },
         { condition: !dataNaixement.value, errorId: "error-data" },
-        { condition: !favMovie.value.trim(), errorId: "error-pelicula" },
+        { condition: !pelPreferida.value.trim(), errorId: "error-pelicula" },
         { condition: !isThisEmailValid(email.value), errorId: "error-email" },
         { condition: !isThisPasswordValid(passwd.value), errorId: "error-password" },
         { condition: generes.selectedOptions.length == 0, errorId: "error-generes" },
     ];
 
-    const errors: string[] = validations
-        .filter(validation => validation.condition)
-        .map(validation => validation.errorId);
+    let errors: string[] = [];
+    for (const validation of validations)
+        if (validation.condition) errors.push(validation.errorId);
 
-    console.log(errors);
+    // console.log(errors);
     errors.forEach(error => showError(error));
     if (errors.length == 0) form.submit();
 }

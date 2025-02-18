@@ -37,6 +37,8 @@ body {
 
 .buttonstyle {
     padding: 12px;
+    margin-left: 5px;
+    margin-right: 5px;
     background-color: #89b48d;
     color: white;
     border: none;
@@ -44,6 +46,10 @@ body {
     transition: background-color 0.3s ease;
     cursor: pointer;
     font-size: 16px;
+}
+
+input:hover.buttonstyle {
+    background-color: #555;
 }
 
 legend {
@@ -56,6 +62,7 @@ legend {
     border: 2px solid #3a533d;
 }
 
+.buttonstyle:hover,
 button:hover {
     background-color: #555;
 }

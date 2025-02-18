@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ca">
 
-<!-- gqj -->
 <!-- 
 La idea és crear un nou HTML al mateix projecte del videoclub que contindrà un
 formulari. 
@@ -33,13 +32,12 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <legend>Dades personals</legend>
                 <!-- Un camp per introduir el nom complet -->
                 <label for="nomComplet">Nom complet:</label>
-                <input type="text" placeholder="Haru" title="Escriu el teu nom!" id="nomComplet" name="nomComplet"
-                    ><br>
+                <input type="text" placeholder="Haru" title="Escriu el teu nom!" id="nomComplet" name="nomComplet"><br>
                 <span class="error-message" id="error-nom"></span><br>
 
                 <!-- Un camp per introduir la data de naixement -->
                 <label for="dataNaixement">Data de Naixement:</label>
-                <input type="date" name="dataNaixement" id="dataNaixement" ><br>
+                <input type="date" name="dataNaixement" id="dataNaixement"><br>
                 <span class="error-message" id="error-data"></span><br>
 
                 <!--  Un camp per introduir el mail amb la seva validació -->
@@ -48,8 +46,7 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <input type="email" placeholder="direccio@elpuig.xeill.net"
                     pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="emailPersona" id="emailPersona" >
                 -->
-                <input type="email" placeholder="direccio@elpuig.xeill.net" name="emailPersona" id="emailPersona"
-                    >
+                <input type="email" placeholder="direccio@domini.net" name="emailPersona" id="emailPersona" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
                 <span class="error-message" id="error-email"></span><br>
                 <!-- 
                 Un camp per introduir una password, patró:
@@ -58,19 +55,15 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <br>
                 <label for="password">Contrasenya:</label>
                 <input type="password" name="password" id="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}"
-                    title="La contrasenya hi ha d'haver una lletra majuscula, minuscula, nom i la seva longitud ha de ser minimament de 8 caracters"
-                    >
+                    title="La contrasenya hi ha d'haver una lletra majuscula, minuscula, nom i la seva longitud ha de ser minimament de 8 caracters">
                 <span class="error-message" id="error-password"></span><br>
             </fieldset>
             <fieldset>
                 <legend>Dades de la pel·lícula</legend>
-                <!-- 
-                Un datalist per introduir la seva pel·lícula preferida
-                (aquest ha de començar amb 3 pel·lícules).
-                -->
-                <label for="favMovie">Pel·lícula preferida:</label>
-                <input list="movies" name="favMovie" id="favMovie">
-                <datalist id="movies">
+                <!--  Un datalist per introduir la seva pel·lícula preferida -->
+                <label for="pelPreferida">Pel·lícula preferida:</label>
+                <input list="pellicules" name="pelPreferida" id="pelPreferida">
+                <datalist id="pellicules">
                     <option value="El meu veí totoro"></option>
                     <option value="El castell ambulant"></option>
                     <option value="La Haru al regne dels gats"></option>
@@ -78,7 +71,7 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <span class="error-message" id="error-pelicula"></span><br>
                 <!--  Select múltiple per marcar gèneres de pel·lícula favorits. -->
                 <label for="generes">Gèneres preferits:</label>
-                <select id="generes" name="generes" multiple >
+                <select id="generes" name="generes" multiple>
                     <option value="aventura">Aventura</option>
                     <option value="misteri">Misteri</option>
                     <option value="terror">Terror</option>
@@ -86,7 +79,8 @@ comprovarà si hi ha dades guardades i les carregarà.
                 <span class="error-message" id="error-generes"></span><br>
             </fieldset>
             <div class="buttons">
-                <button class="buttonstyle" id="button">Go back</button>
+                <button class="buttonstyle" id="button">Tornar enrere</button>
+                <button class="buttonstyle" id="cleanErrors">Treure errors</button>
                 <input class="buttonstyle" type="submit" value="Enviar">
             </div>
         </form>
@@ -94,4 +88,3 @@ comprovarà si hi ha dades guardades i les carregarà.
 </body>
 
 </html>
-<!-- hay que hacer algo con el control. -->
