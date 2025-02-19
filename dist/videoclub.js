@@ -15,10 +15,11 @@ class Client {
         return this.email;
     }
 }
-let clients = JSON.parse(localStorage.getItem("clients") || "[]");
+let clients = [];
 const guardarClient = (client) => {
     clients.push(new Client(client.nom, client.naixement, client.email, client.password, client.pelicula, client.generes));
     localStorage.setItem("clients", JSON.stringify(clients));
+    clients_map.set(client.nom, client.email);
 };
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 //Map que conté client i mail
@@ -27,9 +28,6 @@ const clients_map = new Map([
     ["Joan", "joan@example.com"],
     ["Maria", "invalidemail"],
 ]);
-function convertMapToObject(map) {
-    return (new Client(map.get("nom"), new Date(), map.get("email"), map.get("email").substring(1, 4) + "1234506A*", "La Haru al regne dels gats", "Misteri"));
-}
 // Arrays per a pel·lícules i videojocs
 const movies = [];
 const games = [];
@@ -110,38 +108,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("goToFormButton");
     if (!button)
         return console.error("Botó no trobat.");
-    const existingClients = localStorage.getItem("clients");
-    if (!existingClients)
-        localStorage.setItem("clients", JSON.stringify(clients));
     button.addEventListener("click", () => { window.location.href = "formulari.html"; });
 });
-window.addEventListener("load", loadInfo);
-window.addEventListener("load", saveImportedInfo);
-function loadInfo() {
+// Carrega les dades del localStorage i les mostra
+window.addEventListener("load", () => {
     const existingClients = localStorage.getItem("clients");
-    if (!existingClients) {
-        for (const [name, email] of clients_map.entries()) {
-            clients.push(convertMapToObject(new Map([[name, email]])));
-        }
-        localStorage.setItem("clients", JSON.stringify(clients));
+    if (existingClients) {
+        clients = JSON.parse(existingClients)
+            .map((client) => new Client(client.nom, client.naixement, client.email, client.password, client.pelicula, client.generes));
     }
-    else
-        clients = JSON.parse(existingClients);
-}
-function saveImportedInfo() {
-    const params = new URLSearchParams(window.location.search);
-    const nouClient = {
-        nom: params.get("nomComplet"),
-        naixement: new Date(params.get("dataNaixement")),
-        email: params.get("emailPersona"),
-        password: params.get("password"),
-        pelicula: params.get("pelPreferida"),
-        generes: params.get("generes")
-    };
-    guardarClient(nouClient);
+    ;
+    clients.forEach(client => clients_map.set(client.getNom, client.getEmail));
+    afegirClientNou();
     mostrarClients(clients_map);
-}
-function mostrarClientNou() {
+});
+function afegirClientNou() {
     const params = new URLSearchParams(window.location.search);
     const nom = params.get("nomComplet");
     const naixement = new Date(params.get("dataNaixement"));
@@ -151,14 +132,7 @@ function mostrarClientNou() {
     const generes = params.get("generes");
     if (!nom || !naixement || !email || !password || !pelicula || !generes)
         return;
-    const nouClient = {
-        nom,
-        naixement: new Date(naixement),
-        email,
-        password,
-        pelicula,
-        generes
-    };
+    let nouClient = { nom, naixement: new Date(naixement), email, password, pelicula, generes };
     guardarClient(nouClient);
 }
 //# sourceMappingURL=videoclub.js.map
