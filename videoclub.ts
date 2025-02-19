@@ -182,7 +182,7 @@ function afegirClientNou(): void {
   const email: string = params.get("emailPersona")!;
   const password: string = params.get("password")!;
   const pelicula: string = params.get("pelPreferida")!;
-  const generes: string = params.get("generes")!;
+  const generes: string = params.getAll("generes").join(",");
 
   if (!nom || !naixement || !email || !password || !pelicula || !generes) return;
   let nouClient: ClientData = { nom, naixement: new Date(naixement), email, password, pelicula, generes };

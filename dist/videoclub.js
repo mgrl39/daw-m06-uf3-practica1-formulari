@@ -138,7 +138,7 @@ function afegirClientNou() {
     const email = params.get("emailPersona");
     const password = params.get("password");
     const pelicula = params.get("pelPreferida");
-    const generes = params.get("generes");
+    const generes = params.getAll("generes").join(",");
     if (!nom || !naixement || !email || !password || !pelicula || !generes)
         return;
     let nouClient = { nom, naixement: new Date(naixement), email, password, pelicula, generes };
