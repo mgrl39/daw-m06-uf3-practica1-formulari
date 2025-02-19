@@ -37,15 +37,14 @@ Si es tanca i es torna a obrir, si hi ha dades guardades les carregarà.
 
                 <!-- Camp per introduir el mail amb la seva validació -->
                 <label for="emailPersona">Correu electronic:</label>
-                <input type="email" placeholder="direccio@domini.net" name="emailPersona" id="emailPersona" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
+                <input type="email" placeholder="direccio@domini.net" name="emailPersona" id="emailPersona"
+                    pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
                 <span class="error-message" id="error-email"></span><br>
-                <!-- Camp per introduir una password, patró:
-                1 majúscula, 1 minúscula, 1 nombre, 8 o + caracters.
-                -->
-                <br>
+                <!-- Camp per introduir una password, 1 majus, 1 minús, 1 nombre, 8 o + chars.-->
                 <label for="password">Contrasenya:</label>
-                <input type="password" name="password" id="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}"
-                    title="La contrasenya hi ha d'haver una lletra majuscula, minuscula, nom i la seva longitud ha de ser minimament de 8 caracters">
+                <input type="password" name="password" id="password"
+                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}"
+                    title="La contrasenya ha de tenir almenys una lletra majúscula, una lletra minúscula, un número, un caràcter especial i una longitud mínima de 8 caràcters">
                 <span class="error-message" id="error-password"></span><br>
             </fieldset>
             <fieldset>

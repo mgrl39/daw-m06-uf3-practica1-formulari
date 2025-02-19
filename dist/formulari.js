@@ -25,7 +25,7 @@ const errorTipus = new Map([
 ]);
 // Expressions regulars per validar mail i password.
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
 // Funcions per validar mail i password.
 const isThisEmailValid = (email) => emailRegex.test(email);
 const isThisPasswordValid = (password) => passwordRegex.test(password);
