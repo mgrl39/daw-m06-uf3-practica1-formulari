@@ -62,8 +62,6 @@ const clients_map: Map<string, string> = new Map<string, string>([
 const movies: string[] = [];
 const games: string[] = [];
 
-// Funció fletxa per validar emails
-
 // Funció per mostrar clients
 function mostrarClients(clients: Map<string, string>): void {
   const clientList = document.getElementById("clientList")!;
@@ -152,7 +150,7 @@ function carregarDades(): void {
 
 document.addEventListener("DOMContentLoaded", () => {
   const button: HTMLButtonElement = document.getElementById("goToFormButton") as HTMLButtonElement;
-  if (!button) return console.error("Botó no trobat.");
+  if (!button) return;
   button.addEventListener("click", () => { window.location.href = "formulari.html" });
 });
 

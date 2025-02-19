@@ -31,7 +31,6 @@ const clients_map = new Map([
 // Arrays per a pel·lícules i videojocs
 const movies = [];
 const games = [];
-// Funció fletxa per validar emails
 // Funció per mostrar clients
 function mostrarClients(clients) {
     const clientList = document.getElementById("clientList");
@@ -107,7 +106,7 @@ function carregarDades() {
 document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("goToFormButton");
     if (!button)
-        return console.error("Botó no trobat.");
+        return;
     button.addEventListener("click", () => { window.location.href = "formulari.html"; });
 });
 // Carrega les dades del localStorage i les mostra

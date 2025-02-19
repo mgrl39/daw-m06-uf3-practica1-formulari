@@ -64,7 +64,6 @@ d.addEventListener("keydown", (e: KeyboardEvent) => {
     }
 });
 
-
 // Inicialització de les variables
 function initializeValues(): void {
     nomComplet = d.getElementById("nomComplet") as HTMLInputElement;
@@ -87,8 +86,6 @@ const goToIndex = (e: Event): void => {
 // Funció per esborrar errors
 function clearErrors(): void {
     const errorElements: HTMLSpanElement[] = Array.from(d.querySelectorAll(".error-message"));
-    //console.log(errorElements);
-    //errorElements.forEach((element : HTMLSpanElement) => console.log(element.textContent));
     errorElements.forEach((element: HTMLSpanElement) => element.textContent = "");
 }
 
@@ -117,7 +114,6 @@ function printInfo(): void {
 function validateForm(e: Event): void {
     e.preventDefault();
     clearErrors();
-    // printInfo();
 
     const validations: Validation[] = [
         { condition: !nomComplet.value.trim().length, errorId: "error-nom" },
@@ -132,7 +128,6 @@ function validateForm(e: Event): void {
     for (const validation of validations)
         if (validation.condition) errors.push(validation.errorId);
 
-    // console.log(errors);
     errors.forEach(error => showError(error));
     if (errors.length == 0) form.submit();
 }

@@ -75,8 +75,6 @@ const goToIndex = (e) => {
 // Funció per esborrar errors
 function clearErrors() {
     const errorElements = Array.from(d.querySelectorAll(".error-message"));
-    //console.log(errorElements);
-    //errorElements.forEach((element : HTMLSpanElement) => console.log(element.textContent));
     errorElements.forEach((element) => element.textContent = "");
 }
 // Funció per mostrar missatges d'error
@@ -103,7 +101,6 @@ function printInfo() {
 function validateForm(e) {
     e.preventDefault();
     clearErrors();
-    // printInfo();
     const validations = [
         { condition: !nomComplet.value.trim().length, errorId: "error-nom" },
         { condition: !dataNaixement.value, errorId: "error-data" },
@@ -116,7 +113,6 @@ function validateForm(e) {
     for (const validation of validations)
         if (validation.condition)
             errors.push(validation.errorId);
-    // console.log(errors);
     errors.forEach(error => showError(error));
     if (errors.length == 0)
         form.submit();
