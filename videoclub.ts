@@ -14,9 +14,39 @@ class Client {
     this.pelicula = pelicula;
     this.generes = generes;
   }
+
+  get getNom(): string {
+    return this.nom;
+  }
+
+  get getEmail(): string {
+    return this.email;
+  }
+
 }
 
-let clients: Client[] = [];
+let clients: Client[] = JSON.parse(localStorage.getItem("clients") || "[]");
+
+type ClientData = {
+  nom: string;
+  naixement: Date;
+  email: string;
+  password: string;
+  pelicula: string;
+  generes: string;
+}
+
+const guardarClient = (client: ClientData): void => { 
+    clients.push(new Client(
+        client.nom,
+        client.naixement,
+        client.email,
+        client.password,
+        client.pelicula,
+        client.generes
+    ));
+    localStorage.setItem("clients", JSON.stringify(clients)); 
+};
 
 const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -26,6 +56,10 @@ const clients_map: Map<string, string> = new Map<string, string>([
   ["Joan", "joan@example.com"],
   ["Maria", "invalidemail"],
 ]);
+
+function convertMapToObject(map: Map<string, string>): Client {
+    return (new Client(map.get("nom")!, new Date(), map.get("email")!, map.get("email")!.substring(1, 4) + "1234506A*", "La Haru al regne dels gats", "Misteri"));
+}
 
 // Arrays per a pel·lícules i videojocs
 const movies: string[] = [];
@@ -126,3 +160,54 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!existingClients) localStorage.setItem("clients", JSON.stringify(clients));
   button.addEventListener("click", () => { window.location.href = "formulari.html" });
 });
+
+window.addEventListener("load", loadInfo);
+window.addEventListener("load", saveImportedInfo);
+
+function loadInfo() : void {
+  const existingClients: string | null = localStorage.getItem("clients");
+  if (!existingClients)
+  {
+    for (const [name, email] of clients_map.entries()) {
+      clients.push(convertMapToObject(new Map([[name, email]])));
+    }
+    localStorage.setItem("clients", JSON.stringify(clients));
+  }
+  else clients = JSON.parse(existingClients);
+}
+
+function saveImportedInfo() {
+  const params : URLSearchParams = new URLSearchParams(window.location.search);
+  const nouClient : ClientData = {
+    nom: params.get("nomComplet")!,
+    naixement: new Date(params.get("dataNaixement")!),
+    email: params.get("emailPersona")!,
+    password: params.get("password")!,
+    pelicula: params.get("pelPreferida")!,
+    generes: params.get("generes")!
+  };
+  guardarClient(nouClient);
+  mostrarClients(clients_map);
+}
+
+function mostrarClientNou(): void {
+  const params: URLSearchParams = new URLSearchParams(window.location.search);
+  const nom: string = params.get("nomComplet")!;
+  const naixement: Date = new Date(params.get("dataNaixement")!);
+  const email: string = params.get("emailPersona")!;
+  const password: string = params.get("password")!;
+  const pelicula: string = params.get("pelPreferida")!;
+  const generes: string = params.get("generes")!;
+
+  if (!nom || !naixement || !email || !password || !pelicula || !generes) return;
+
+  const nouClient: ClientData = {
+    nom,
+    naixement: new Date(naixement),
+    email,
+    password,
+    pelicula,
+    generes
+  };
+  guardarClient(nouClient);
+}
