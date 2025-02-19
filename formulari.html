@@ -2,16 +2,12 @@
 <html lang="ca">
 
 <!-- 
-La idea és crear un nou HTML al mateix projecte del videoclub que contindrà un
-formulari. 
-Tots dos estaran relacionats entre si i podrem navegar de l'un a
-l’altre a través d’un botó (no un enllaç).
-
-A la pàgina principal s'usaren aquestes dades per crear un objecte client i
-emmagatzemar-ho a la llista de clients. Aquestes dades han de ser persistents,
-és a dir, cada vegada que s’afegeixi un client, s’actualitzarà la llista i es
-guardarà al LocalStorage. Si es tanca la pàgina i es torna a obrir, es
-comprovarà si hi ha dades guardades i les carregarà. 
+Aquest HTML esta relacionat amb el formulari de la pàgina principal.
+A la pàgina principal es crea un objecte client per emmagatzemar les dades
+a una llista de clients.
+Aquestes dades son persistents, és a dir, cada vegada que s'afegeix un client,
+s’actualitza la llista i es guarda al LocalStorage. 
+Si es tanca i es torna a obrir, si hi ha dades guardades les carregarà. 
 -->
 
 <head>
@@ -25,32 +21,26 @@ comprovarà si hi ha dades guardades i les carregarà.
     <div class="background-image"></div>
     <div class="container">
         <h1>Formulari</h1>
-        <!-- S’ha d'enviar amb un GET a la pàgina principal.  -->
-        <!-- Tots els avisos d’errors han d'aparèixer al form amb missatges propis  -->
+        <!-- s'envia amb un GET a la pàgina principal.  -->
         <form id="mainForm" action="index.html" method="GET">
             <fieldset>
                 <legend>Dades personals</legend>
-                <!-- Un camp per introduir el nom complet -->
+                <!-- Camp per introduir el nom complet -->
                 <label for="nomComplet">Nom complet:</label>
                 <input type="text" placeholder="Haru" title="Escriu el teu nom!" id="nomComplet" name="nomComplet"><br>
                 <span class="error-message" id="error-nom"></span><br>
 
-                <!-- Un camp per introduir la data de naixement -->
+                <!-- Camp per introduir la data de naixement -->
                 <label for="dataNaixement">Data de Naixement:</label>
                 <input type="date" name="dataNaixement" id="dataNaixement"><br>
                 <span class="error-message" id="error-data"></span><br>
 
-                <!--  Un camp per introduir el mail amb la seva validació -->
+                <!-- Camp per introduir el mail amb la seva validació -->
                 <label for="emailPersona">Correu electronic:</label>
-                <!-- 
-                <input type="email" placeholder="direccio@elpuig.xeill.net"
-                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="emailPersona" id="emailPersona" >
-                -->
                 <input type="email" placeholder="direccio@domini.net" name="emailPersona" id="emailPersona" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
                 <span class="error-message" id="error-email"></span><br>
-                <!-- 
-                Un camp per introduir una password, patró:
-                una majúscula, una minúscula, un nombre, 8 o + caracters.
+                <!-- Camp per introduir una password, patró:
+                1 majúscula, 1 minúscula, 1 nombre, 8 o + caracters.
                 -->
                 <br>
                 <label for="password">Contrasenya:</label>
@@ -60,7 +50,7 @@ comprovarà si hi ha dades guardades i les carregarà.
             </fieldset>
             <fieldset>
                 <legend>Dades de la pel·lícula</legend>
-                <!--  Un datalist per introduir la seva pel·lícula preferida -->
+                <!--  Datalist per introduir la seva pel·lícula preferida -->
                 <label for="pelPreferida">Pel·lícula preferida:</label>
                 <input list="pellicules" name="pelPreferida" id="pelPreferida">
                 <datalist id="pellicules">

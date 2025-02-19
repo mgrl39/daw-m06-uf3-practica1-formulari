@@ -1,3 +1,4 @@
+// Classe que representa un client del videoclub.
 class Client {
   private nom: string;
   private naixement: Date;
@@ -25,8 +26,8 @@ class Client {
 
 }
 
+// Llista de clients i tipus de dades ClientData.
 let clients: Client[] = [];
-
 type ClientData = {
   nom: string;
   naixement: Date;
@@ -36,6 +37,7 @@ type ClientData = {
   generes: string;
 }
 
+// Funció per afegir un client a la llista i guardar-lo al localStorage.
 const guardarClient = (client: ClientData): void => {
   clients.push(new Client(
     client.nom,
@@ -49,9 +51,10 @@ const guardarClient = (client: ClientData): void => {
   clients_map.set(client.nom, client.email);
 };
 
+// Validar si un mail es valid
 const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-//Map que conté client i mail
+// Map que conté client i mail
 const clients_map: Map<string, string> = new Map<string, string>([
   ["Anna", "anna@example.com"],
   ["Joan", "joan@example.com"],
@@ -148,13 +151,16 @@ function carregarDades(): void {
   mostrarClients(clients_map);
 };
 
+// Event que s'executa quan el document s'ha carregat completament.
+// S'utilitza un event listener per redirigir a la pàgina de formulari.
 document.addEventListener("DOMContentLoaded", () => {
   const button: HTMLButtonElement = document.getElementById("goToFormButton") as HTMLButtonElement;
   if (!button) return;
   button.addEventListener("click", () => { window.location.href = "formulari.html" });
 });
 
-// Carrega les dades del localStorage i les mostra
+// Carrega les dades del localStorage i les mostra. 
+// Si hi ha dades, les parseja, afegint-les a la llista de clients.
 window.addEventListener("load", () => {
   const existingClients: string | null = localStorage.getItem("clients");
   if (existingClients) {
@@ -166,6 +172,9 @@ window.addEventListener("load", () => {
   mostrarClients(clients_map);
 });
 
+// Funció per afegir un client nou.
+// S'utilitza un URLSearchParams per obtenir les dades del formulari.
+// Si algun camp no existeix, no es fa res.
 function afegirClientNou(): void {
   const params: URLSearchParams = new URLSearchParams(window.location.search);
   const nom: string = params.get("nomComplet")!;

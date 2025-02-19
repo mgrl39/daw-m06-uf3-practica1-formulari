@@ -1,14 +1,14 @@
-// Definició de les variables
+// Definició de variables principals
 const d: Document = document;
 const INDEX: string = "index.html";
 
-// Definició del tipus de les validacions
+// Definició del tipus de les validacions. Condicio de validacio i id de l'error.
 type Validation = {
     condition: boolean;
     errorId: string;
 };
 
-// Definició de les variables
+// Definició dels elements del formulari
 let nomComplet: HTMLInputElement;
 let dataNaixement: HTMLInputElement;
 let email: HTMLInputElement;
@@ -31,13 +31,16 @@ const errorTipus: Map<string, string> = new Map([
     ["error-default", "Ha hagut un error."]
 ]);
 
-// Validacions: tenim el patró per a l'email i la password. Juntament amb la funció per a comprovar si és vàlid.
+// Expressions regulars per validar mail i password.
 const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+// Funcions per validar mail i password.
 const isThisEmailValid = (email: string): boolean => emailRegex.test(email);
 const isThisPasswordValid = (password: string): boolean => passwordRegex.test(password);
 
-// Inicialització de les variables i afegim event listeners.
+// Inicialització de les variables i afegim event listeners quan la pàgina es carregi.
+// Inicialitza els elements del formular, afegeix listeners per validar formulari i esborrar errors.
+// Validacio e temps real per email i password.
 d.addEventListener('DOMContentLoaded', () => {
     initializeValues();
     if (form) form.addEventListener('submit', validateForm);
@@ -52,11 +55,13 @@ d.addEventListener('DOMContentLoaded', () => {
     passwd.addEventListener("input", () => validateValue(passwd.value, passwordRegex, "error-password"));
 });
 
+// Funcio per validar un camp
 function validateValue(value: string, regex: RegExp, errorId: string) : void {
     const errorElement : HTMLSpanElement = d.getElementById(errorId)!;
     errorElement.textContent = regex.test(value) ? "" : errorTipus.get(errorId)!;
 }
 
+// Listener per evitar que l'usuari pugui enviar el formulari sense validar.
 d.addEventListener("keydown", (e: KeyboardEvent) => {
     if (e.key == "Enter") {
         e.preventDefault();
@@ -64,7 +69,7 @@ d.addEventListener("keydown", (e: KeyboardEvent) => {
     }
 });
 
-// Inicialització de les variables
+// Inicialització de les variables del formulari
 function initializeValues(): void {
     nomComplet = d.getElementById("nomComplet") as HTMLInputElement;
     dataNaixement = d.getElementById("dataNaixement") as HTMLInputElement;
@@ -77,13 +82,13 @@ function initializeValues(): void {
     cleanErrorsButton = d.getElementById("cleanErrors") as HTMLButtonElement;
 }
 
-// Funció per anar a l'índex
+// Funció per anar a l'índex (anar a la pàgina principal)
 const goToIndex = (e: Event): void => {
     e.preventDefault();
     window.location.href = INDEX;
 };
 
-// Funció per esborrar errors
+// Funció per esborrar els missatges d'error
 function clearErrors(): void {
     const errorElements: HTMLSpanElement[] = Array.from(d.querySelectorAll(".error-message"));
     errorElements.forEach((element: HTMLSpanElement) => element.textContent = "");
@@ -98,7 +103,7 @@ const showError = (elementId: string): void => {
     }
 };
 
-// Funció per imprimir informació.
+// Funció per imprimir informació (no es fa servir pero es pot utilitzar per debugar)
 function printInfo(): void {
     console.clear();
     console.log("Longitud del nom: ", nomComplet.value.trim().length);
@@ -110,7 +115,9 @@ function printInfo(): void {
     console.log("Pel·lícula: ", pelPreferida.value.trim());
 }
 
-// Funció per validar el formulari
+// Funció per validar el formulari abans d'enviar-lo
+// Esborrem errors previs, definim les validacions i mostrem errors si hi ha.
+// Si no hi ha errors, enviem el formulari.
 function validateForm(e: Event): void {
     e.preventDefault();
     clearErrors();
